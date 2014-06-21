@@ -31,7 +31,7 @@ removable_disks() {
 		issd=0 ;
 		# echo "checking $diskname/$type/$size" ;
 		if [ $size -ge 3906250 ]; then
-			if [ $size -lt 62500000 ]; then
+			if [ $size -lt 72500000 ]; then
 				issd=1 ;
 			fi
 		fi
