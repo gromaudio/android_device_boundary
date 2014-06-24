@@ -31,7 +31,7 @@ removable_disks() {
 		issd=0 ;
 		# echo "checking $diskname/$type/$size" ;
 		if [ $size -ge 3906250 ]; then
-			if [ $size -lt 62500000 ]; then
+			if [ $size -lt 72500000 ]; then
 				issd=1 ;
 			fi
 		fi
@@ -91,14 +91,14 @@ for n in `seq 1 8` ; do
 done
 
 echo "all partitions present and accounted for!";
-sync && sudo sfdisk -R ${diskname}${prefix} && sleep 1
+sync && sudo sfdisk -R ${diskname}${prefix} && sleep 2
 
 # make partition 4 1500MB long (to allow smallish 4GB cards)
 sfdisk ${diskname} -N4 -uM  << EOF
 ,1500,83
 EOF
 
-sync && sudo sfdisk -R ${diskname}${prefix} && sleep 1
+sync && sudo sfdisk -R ${diskname}${prefix} && sleep 2
 
 echo "------------------making BOOT partition"
 mkfs.vfat -n BOOT ${diskname}${prefix}1
@@ -114,7 +114,7 @@ echo "------------------making MISC partition"
 mkfs.ext4 -L MISC ${diskname}${prefix}8
 
 echo "------------------mounting BOOT, RECOVER, DATA partitions"
-sync && sleep 1 && sudo sfdisk -R ${diskname}${prefix} && sleep 1
+sync && sleep 5 && sudo sfdisk -R ${diskname}${prefix} && sleep 5
 
 for n in 1 2 4 ; do
    echo "--- mounting ${diskname}${prefix}${n}";
